@@ -1,0 +1,6 @@
+{
+  "name": "GlossaForge - Advanced Conlang & Linguistic Engine",
+  "description": "World-class linguistic engine and constructed language generator with phonological constraints, geometric morphology, pronominal affixation, and phonetic audio synthesis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

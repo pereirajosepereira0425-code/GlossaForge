@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "entities": {
+    "PublishedLanguage": {
+      "title": "PublishedLanguage",
+      "description": "A constructed language published by a user for community exploration, learning, and usage.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the published language"
+        },
+        "name": {
+          "type": "string",
+          "description": "Language name"
+        },
+        "creator": {
+          "type": "string",
+          "description": "Author or creator display name"
+        },
+        "creatorEmail": {
+          "type": "string",
+          "description": "Author email address"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief description and linguistic lore"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Taxonomy tags (e.g. agglutinative, alien, fantasy, pua-script)"
+        },
+        "config": {
+          "type": "object",
+          "description": "Full serialized LanguageConfig state containing phonology, morphology, grammar, script, dictionary, and custom glyphs"
+        },
+        "clonesCount": {
+          "type": "number",
+          "description": "Number of times cloned or imported by other users"
+        },
+        "likesCount": {
+          "type": "number",
+          "description": "Number of community appreciations"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["id", "name", "creator", "summary", "config", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/published_languages/{languageId}": {
+      "schema": "PublishedLanguage",
+      "description": "Public repository of constructed languages shared by users worldwide"
+    }
+  }
+}

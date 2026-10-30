@@ -305,8 +305,20 @@ export function generateLexicon(config: LanguageConfig): ConlangWord[] {
       numSyllables = rng() > 0.4 ? 2 : 1;
     }
 
+    const customSyllablesList = config.syllableConfig.customSyllables || [];
     const syllables: string[] = [];
     for (let s = 0; s < numSyllables; s++) {
+      // If user has defined custom syllables, give high opportunity to use them
+      const canUseCustom = customSyllablesList.length > 0 && (rng() > 0.4 || customSyllablesList.some(cs => cs.isMandatoryRoot));
+      if (canUseCustom) {
+        // Weighted selection of user custom syllable
+        const chosenCustom = customSyllablesList[Math.floor(rng() * customSyllablesList.length)];
+        if (chosenCustom && chosenCustom.romanization) {
+          syllables.push(chosenCustom.romanization);
+          continue;
+        }
+      }
+
       const template = templates[Math.floor(rng() * templates.length)] || 'CVC';
       const isInitial = s === 0;
 

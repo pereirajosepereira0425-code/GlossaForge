@@ -76,6 +76,35 @@ export const PRESET_VALKYRISH: LanguageConfig = {
     maxCodaConsonants: 2,
     allowGeminates: false,
     vowelHarmony: 'front-back',
+    customSyllables: [
+      {
+        id: 'syl-kra',
+        romanization: 'kra',
+        ipa: 'kɾa',
+        structure: 'CCV',
+        meaningOrLore: 'Sacred spirit root, used for vitality and eternal endurance',
+        weight: 3,
+        isMandatoryRoot: true,
+      },
+      {
+        id: 'syl-vel',
+        romanization: 'vel',
+        ipa: 'vɛl',
+        structure: 'CVC',
+        meaningOrLore: 'Flowing highland wind or breath',
+        weight: 2,
+        isMandatoryRoot: false,
+      },
+      {
+        id: 'syl-mor',
+        romanization: 'mor',
+        ipa: 'mɔr',
+        structure: 'CVC',
+        meaningOrLore: 'Mountain stone or deep foundation',
+        weight: 2,
+        isMandatoryRoot: false,
+      },
+    ],
   },
   consonantInventory: STANDARD_IPA_CONSONANTS.filter(c =>
     ['p', 'b', 't', 'd', 'k', 'g', "'", 'm', 'n', 'ň', 'r', 'ř', 's', 'z', 'š', 'ž', 'č', 'ć', 'l', 'ľ', 'j'].includes(c.romanization)

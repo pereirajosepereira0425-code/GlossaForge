@@ -111,12 +111,26 @@ export interface CustomVocabularyOverride {
   notes?: string;
 }
 
+export interface CustomSyllableDefinition {
+  id: string;
+  romanization: string;       // e.g. "kra", "vel", "mor" or custom syllable with custom characters
+  ipa?: string;               // e.g. "kɾa", "vɛl"
+  nativeScript?: string;      // Unicode/PUA representation with custom glyphs
+  structure?: string;         // e.g. "CCV", "CVC"
+  meaningOrLore?: string;     // e.g. "Sacred spirit syllable", "Prefix root"
+  characterIds?: string[];    // IDs of custom letters or glyphs used
+  weight?: number;            // Selection frequency probability (1–5)
+  isMandatoryRoot?: boolean;  // If true, generator regularly injects this into root words
+  createdAt?: string;
+}
+
 export interface SyllableTemplateConfig {
   templates: string[];        // e.g. ["CV", "CVC", "CCV", "CCVCC"]
   maxOnsetConsonants: number; // e.g. 2
   maxCodaConsonants: number;  // e.g. 2
   allowGeminates: boolean;
   vowelHarmony: 'none' | 'front-back' | 'height';
+  customSyllables?: CustomSyllableDefinition[]; // User's own defined syllables with custom characters
 }
 
 export interface NativeGlyph {

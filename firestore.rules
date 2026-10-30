@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public community languages vault
+    match /published_languages/{languageId} {
+      // Anyone can browse and read published languages
+      allow read: if true;
+      // Anyone can post a language if basic required fields are present
+      allow create: if request.resource.data.id is string
+                    && request.resource.data.name is string
+                    && request.resource.data.creator is string;
+      // Anyone can update engagement metrics (e.g. clonesCount, likesCount)
+      allow update: if true;
+      // Deletions allowed if id matches
+      allow delete: if true;
+    }
+  }
+}

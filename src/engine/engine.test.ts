@@ -23,6 +23,7 @@ import {
   extractPhonologicalRulesFromOverrides,
   generateLexicon,
 } from './lexicon';
+import { LanguageConfig } from './types';
 import {
   buildNativeGlyphMap,
   transliterateToNativeUnicode,
@@ -153,4 +154,30 @@ test('Custom Characters & Audio: Integrates custom drawn glyph with PUA code int
 
   const ipa = romanToIpa('x̌ar', customConfig);
   assert.match(ipa, /χ/, 'Custom romanization x̌ should map to custom IPA /χ/');
+});
+
+test('Custom Syllables: Syllable editor data persists and integrates into root synthesis', () => {
+  const customConfig: LanguageConfig = {
+    ...PRESET_VALKYRISH,
+    id: 'test-custom-syllable-lang',
+    syllableConfig: {
+      ...PRESET_VALKYRISH.syllableConfig,
+      customSyllables: [
+        {
+          id: 'syl-custom-star',
+          romanization: 'žvax',
+          ipa: 'ʒvax',
+          structure: 'CCVC',
+          meaningOrLore: 'Cosmic particle',
+          weight: 5,
+          isMandatoryRoot: true,
+        },
+      ],
+    },
+  };
+
+  const words = generateLexicon(customConfig);
+  assert.ok(words.length > 0, 'Lexicon generated with custom syllables');
+  const usesCustom = words.some(w => w.conlang.includes('žvax') || w.syllables.includes('žvax'));
+  assert.strictEqual(usesCustom, true, 'At least one word contains the mandatory custom syllable');
 });
